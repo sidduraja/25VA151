@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Navigation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; line-height: 1.6; }
+        header { background: linear-gradient(90deg,#333,#2b2b2b); color: #fff; }
+        nav { padding: 1rem 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display:flex; align-items:center; justify-content:space-between; }
+        .logo { font-weight:700; font-size:1.1rem; letter-spacing:0.5px; }
+        nav ul { list-style:none; display:flex; gap:1rem; align-items:center; }
+        nav a { color:#fff; text-decoration:none; padding:0.5rem 0.8rem; transition: color .2s, background .2s, transform .12s; border-radius:4px; outline-offset:3px; }
+        nav a:hover, nav a:focus { color:#4CAF50; background: rgba(255,255,255,0.03); transform: translateY(-2px); }
+        nav a:focus { box-shadow: 0 0 0 3px rgba(76,175,80,0.12); }
+
+        .hamburger { display:none; cursor:pointer; flex-direction:column; gap:4px; }
+        .hamburger span { width:22px; height:2px; background:#fff; display:block; transition: transform .18s ease, background .18s ease; }
+
+        .hero { max-width:1200px; margin:2rem auto; padding:1rem; display:flex; gap:2rem; align-items:center; }
+        .hero-text { flex:1; }
+        .hero h1 { font-size:2rem; margin-bottom:.5rem; transition: transform .18s ease, color .18s ease; }
+        .hero p { color:#555; margin-bottom:1rem; }
+        .cta { display:inline-block; background:#4CAF50; color:#fff; padding:.6rem 1rem; border-radius:6px; text-decoration:none; transition: background .18s ease, transform .12s ease, box-shadow .18s ease; }
+        .cta:hover, .cta:focus { background:#43a047; transform: translateY(-3px); box-shadow:0 8px 18px rgba(67,160,71,0.12); }
+
+        .grid { max-width:1200px; margin:1.5rem auto; padding:0 1rem; display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
+        .card { background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.06); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+        .card:hover, .card:focus-within { transform: translateY(-6px); box-shadow:0 10px 24px rgba(0,0,0,0.09); }
+        .card h3 { margin-bottom:.5rem; color:#222; }
+        .card p { color:#555; font-size:.95rem; }
+
+        section { padding:1rem 0; }
+
+        .about { max-width:1000px; margin:0 auto; padding:0 1rem; background:transparent; }
+        .team { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem; }
+        .member { background:#fff; padding:.8rem; border-radius:8px; text-align:center; flex:1 1 180px; box-shadow:0 2px 6px rgba(0,0,0,0.05); transition: transform .18s ease, box-shadow .18s ease; }
+        .member:hover, .member:focus-within { transform: translateY(-6px) scale(1.01); box-shadow:0 10px 20px rgba(0,0,0,0.07); }
+        .member img { width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:.6rem; transition: transform .18s ease; }
+        .member img:hover { transform: scale(1.06); }
+
+        .contact-form { max-width:700px; margin:0 auto; background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+        .contact-form label { display:block; margin:0.5rem 0 .2rem; font-size:.9rem; color:#333; }
+        .contact-form input, .contact-form textarea { width:100%; padding:.6rem; border:1px solid #ddd; border-radius:6px; font-size:.95rem; transition: box-shadow .12s ease, border-color .12s ease; }
+        .contact-form input:focus, .contact-form textarea:focus { box-shadow:0 6px 18px rgba(76,175,80,0.06); border-color:#4CAF50; outline:none; }
+        .contact-form button { margin-top:.8rem; background:#333; color:#fff; padding:.6rem 1rem; border:none; border-radius:6px; cursor:pointer; transition: transform .12s ease, background .12s ease; }
+        .contact-form button:hover { transform: translateY(-3px); background:#444; }
+
+        footer { margin-top:2rem; background:#222; color:#ddd; padding:1rem 0; text-align:center; }
+        .muted { color:#777; font-size:.95rem; }
+
+        .hero-image img { transition: transform .25s ease, box-shadow .25s ease; }
+        .hero-image img:hover { transform: translateY(-6px) scale(1.02); box-shadow:0 12px 30px rgba(0,0,0,0.08); }
+
+        @media (max-width:800px){
+            nav ul { display:none; position:absolute; left:0; right:0; top:64px; background:#333; flex-direction:column; padding:1rem; gap:0.5rem; transition: max-height .25s ease; }
+            nav ul.show { display:flex; }
+            .hamburger { display:flex; }
+            .hero { flex-direction:column; text-align:center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-inner">
+                <div class="logo">Abes And Services</div>
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+                <ul id="nav-list">
+                    <li><a href="https://youtu.be/dQw4w9WgXcQ?si=4OrV3a502FMa1A5G">Home</a></li>
+                    <li><a href="https://youtu.be/dQw4w9WgXcQ?si=4OrV3a502FMa1A5G">About</a></li>
+                    <li><a href="https://youtu.be/dQw4w9WgXcQ?si=4OrV3a502FMa1A5G">Services</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=mMfxI3r_LyA&list=RDmMfxI3r_LyA&start_radio=1">Projects</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=mMfxI3r_LyA&list=RDmMfxI3r_LyA&start_radio=1">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>Welcome to Our Website</h1>
+                <p>Responsive, clean, and easy to extend. Explore our services, recent projects, and meet the team.</p>
+                <a class="cta" href="#services">See Services</a>
+            </div>
+            <div class="hero-image" aria-hidden="true">
+                <img src="https://via.placeholder.com/360x220.png?text=Hero+Image" alt="Decorative hero" style="border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.08); width:360px; max-width:100%;">
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="grid">
+                <div class="card">
+                    <h3>Web Design</h3>
+                    <p>Modern, accessible designs focused on usability and performance.</p>
+                </div>
+                <div class="card">
+                    <h3>Development</h3>
+                    <p>Front-end and back-end development using current best practices.</p>
+                </div>
+                <div class="card">
+                    <h3>SEO & Marketing</h3>
+                    <p>Improve visibility and reach with targeted strategies.</p>
+                </div>
+                <div class="card">
+                    <h3>Maintenance</h3>
+                    <p>Ongoing support, updates, and performance monitoring.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container about" style="max-width:1200px;">
+                <h2 style="text-align:center; margin-bottom:1rem;">Recent Projects</h2>
+                <div class="grid">
+                    <div class="card"><h3>Project Alpha</h3><p>A responsive CMS site for a small business.</p></div>
+                    <div class="card"><h3>Project Beta</h3><p>Single-page app with realtime features.</p></div>
+                    <div class="card"><h3>Project Gamma</h3><p>E-commerce platform with custom checkout flow.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2 style="text-align:center;">About Us</h2>
+            <p style="max-width:800px; margin:0.6rem auto; color:#555; text-align:center;">
+                We build web experiences that are fast, accessible, and maintainable. Our small team focuses on delivering measurable results.
+            </p>
+
+            <div class="team" aria-label="Team members">
+                <div class="member">
+                    <img src="https://via.placeholder.com/80.png?text=A" alt="Team member avatar">
+                    <strong>Alice</strong>
+                    <div class="muted">Designer</div>
+                </div>
+                <div class="member">
+                    <img src="https://via.placeholder.com/80.png?text=B" alt="Team member avatar">
+                    <strong>Ben</strong>
+                    <div class="muted">Developer</div>
+                </div>
+                <div class="member">
+                    <img src="https://via.placeholder.com/80.png?text=C" alt="Team member avatar">
+                    <strong>Clara</strong>
+                    <div class="muted">Marketing</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="padding-bottom:2rem;">
+            <h2 style="text-align:center; margin-bottom:.5rem;">Contact Us</h2>
+            <div class="contact-form" role="form" aria-label="Contact form">
+                <form id="contactForm">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" required placeholder="Your name">
+
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="How can we help?"></textarea>
+
+                    <button type="submit">Send Message</button>
+                    <p id="formStatus" class="muted" style="margin-top:.6rem;"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div style="max-width:1200px; margin:0 auto; padding:0 1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+                <div>&copy; <span id="year"></span> SiteName</div>
+                <div class="muted">Built with care. <a href="#top" style="color:#bbb; text-decoration:none;">Back to top</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactivity: mobile nav toggle, smooth scroll, basic form handler
+        (function(){
+            const navList = document.getElementById('nav-list');
+            const hamb = document.getElementById('hamburger');
+            hamb && hamb.addEventListener('click', ()=> navList.classList.toggle('show'));
+            hamb && hamb.addEventListener('keyup', (e)=> { if(e.key === 'Enter') navList.classList.toggle('show'); });
+
+            // smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(a=>{
+                a.addEventListener('click', function(e){
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target){
+                        e.preventDefault();
+                        target.scrollIntoView({behavior:'smooth', block:'start'});
+                        navList.classList.remove('show');
+                    }
+                });
+            });
+
+            // form handler (demo only)
+            const form = document.getElementById('contactForm');
+            const status = document.getElementById('formStatus');
+            form && form.addEventListener('submit', function(e){
+                e.preventDefault();
+                status.textContent = 'Sending...';
+                // simulate submit
+                setTimeout(()=>{
+                    status.textContent = 'Message sent. Thanks!';
+                    form.reset();
+                }, 800);
+            });
+
+            // footer year
+            document.getElementById('year').textContent = new Date().getFullYear();
+        })();
+    </script>
+</body>
+</html>
